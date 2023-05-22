@@ -29,9 +29,9 @@ const router = useRouter();
 
 const submitFormReg = () => {
     v$.value.$touch();
-    if (!v$.value.$invalid) {
-        router.push('/stock');
-    }
+    // state.workSector.value === "frios";
+    console.log("Se envio");
+    router.push('/stock');
 }
 
 </script>
@@ -63,10 +63,10 @@ const submitFormReg = () => {
                     </div>
                     <!-- Confirmar contraseña -->
                     <!-- <label>Confirmar contraseña:</label>
-                        <input v-model="v$.password.$model" type="password" name="password">
-                        <div>
-                            <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
-                        </div> -->
+                            <input v-model="v$.password.$model" type="password" name="password">
+                            <div>
+                                <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
+                            </div> -->
                 </div>
                 <!-- Sector -->
                 <div class="p-1">
