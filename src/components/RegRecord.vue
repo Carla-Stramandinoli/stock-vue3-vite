@@ -1,5 +1,6 @@
 <script setup>
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import useVuelidate from '@vuelidate/core'
 import { required, sameAs, alpha } from '@vuelidate/validators'
 
@@ -24,45 +25,50 @@ const rules = {
 const v$ = useVuelidate(rules, state);
 console.log(v$.value);
 
-function submitFormReg() {
-    if (state.name.value, state.lastName.value, state.password.value, state.confirmPassword.value, state.category.value && state.workSector.value === "Frios") {
-        router.push('../views/StockView.vue');
-        console.log("dd")
+const router = useRouter();
+
+const submitFormReg = () => {
+    v$.value.$touch();
+    if (!v$.value.$invalid) {
+        router.push('/stock');
     }
 }
+
 </script>
 
 <template>
     <div class="card">
         <h2>Registrarse</h2>
         <div class="card-body">
-            <form>
+            <form @submit.prevent="submitFormReg">
                 <div>
+                    <!-- Nombre -->
                     <label>Nombre:</label>
                     <input v-model="v$.name.$model" type="text">
                     <br>
                     <div>
                         <p v-for="(error, index) of v$.name.$errors" :key="index">{{ error.$message }}</p>
                     </div>
-
+                    <!-- Apellido -->
                     <label>Apellido:</label>
                     <input v-model="v$.lastName.$model" type="text">
                     <div>
                         <p v-for="(error, index) of v$.lastName.$errors" :key="index">{{ error.$message }}</p>
                     </div>
-
+                    <!-- Contraseña -->
                     <label>Contraseña:</label>
                     <input v-model="v$.password.$model" type="password" name="password">
                     <div>
                         <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
                     </div>
-
-                    <label>Confirmar contraseña:</label>
-                    <input v-model="v$.password.$model" type="password" name="password">
-                    <div>
-                        <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
-                    </div>
+                    <!-- Confirmar contraseña -->
+                    <!-- <label>Confirmar contraseña:</label>
+                        <input v-model="v$.password.$model" type="password" name="password">
+                        <div>
+                            <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
+                        </div> -->
                 </div>
+                <!-- Sector -->
                 <div class="p-1">
                     <label>Sector de trabajo: </label>
                     <select v-model="v$.workSector.$model" class="form-select form-select-sm m-1">
@@ -74,7 +80,7 @@ function submitFormReg() {
                     <div>
                         <p v-for="(error, index) of v$.workSector.$errors" :key="index">{{ error.$message }}</p>
                     </div>
-
+                    <!-- Categoria -->
                     <label>Categoria:</label>
                     <select v-model="v$.category.$model" class="form-select form-select-sm  m-1"
                         aria-label="Default select example">
@@ -87,7 +93,7 @@ function submitFormReg() {
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <input @click="submitFormReg()" type="submit" class="btn btn-outline-dark" value="Registrarse">
+                    <button class="btn btn-outline-dark" type="submit">Registrarse</button>
                 </div>
             </form>
         </div>
