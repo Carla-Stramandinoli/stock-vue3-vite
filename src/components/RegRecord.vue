@@ -17,7 +17,7 @@ const rules = {
     name: { required, alpha },
     lastName: { required, alpha },
     password: { required },
-    confirmPassword: { required, confirmPassword: { sameAs: sameAs(state.password) } },
+    // confirmPassword: { required, confirmPassword: { sameAs: sameAs(state.password.value) } },
     workSector: { required },
     category: { required }
 }
@@ -27,11 +27,17 @@ console.log(v$.value);
 
 const router = useRouter();
 
-const submitFormReg = () => {
+function submitFormReg(){
     v$.value.$touch();
-    // state.workSector.value === "frios";
-    console.log("Se envio");
-    router.push('/stock');
+    console.log(state.name);
+    if (state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "frios") {
+        console.log("Se envio");
+        router.push('/frios');
+    } else if(state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "calentitos"){
+        router.push('/calentitos');
+    } else if(state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "islas"){
+        router.push('/islas');
+    }
 }
 
 </script>
@@ -63,10 +69,10 @@ const submitFormReg = () => {
                     </div>
                     <!-- Confirmar contraseña -->
                     <!-- <label>Confirmar contraseña:</label>
-                            <input v-model="v$.password.$model" type="password" name="password">
-                            <div>
-                                <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
-                            </div> -->
+                    <input v-model="v$.password.$model" type="password" name="password">
+                    <div>
+                    <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
+                    </div> -->
                 </div>
                 <!-- Sector -->
                 <div class="p-1">
@@ -97,8 +103,8 @@ const submitFormReg = () => {
                 </div>
             </form>
         </div>
-
     </div>
+
 </template>
 
 <style scoped>
