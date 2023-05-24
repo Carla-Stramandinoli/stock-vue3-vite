@@ -1,13 +1,12 @@
 <script setup>
-import RegRecord from '../components/RegRecord.vue'
+import HomeComponent from '../components/HomeComponent.vue';
 
 </script>
 
 <template>
-<reg-record />
-
+    <div class="d-flex">
+        <home-component />
+    </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

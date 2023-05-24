@@ -2,7 +2,7 @@
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import useVuelidate from '@vuelidate/core'
-import { required, sameAs, alpha } from '@vuelidate/validators'
+import { required, sameAs, alpha, minLength, maxLength } from '@vuelidate/validators'
 
 const state = reactive({
     name: '',
@@ -12,12 +12,12 @@ const state = reactive({
     workSector: '',
     category: ''
 })
-// corregir validaciones
+// corregir validaciones confirm pass
 const rules = {
-    name: { required, alpha },
-    lastName: { required, alpha },
-    password: { required },
-    // confirmPassword: { required, confirmPassword: { sameAs: sameAs(state.password.value) } },
+    name: { required, alpha, minValue: minLength(3), maxValue: maxLength(40) },
+    lastName: { required, alpha, minValue: minLength(2), maxValue: maxLength(40) },
+    password: { required, minValue: minLength(6) },
+    confirmPassword: { required, confirmPassword: { sameAsPassword: sameAs(state.password) } },
     workSector: { required },
     category: { required }
 }
@@ -30,7 +30,7 @@ const router = useRouter();
 function submitFormReg(){
     v$.value.$touch();
     console.log(state.name);
-    if (state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "frios") {
+    if (state.name != "" && state.lastname != "" && state.password != "" && state.confirmPassword == state.password && "" && state.category != "" && state.workSector == "frios") {
         console.log("Se envio");
         router.push('/frios');
     } else if(state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "calentitos"){
@@ -44,7 +44,7 @@ function submitFormReg(){
 
 <template>
     <div class="card">
-        <h2>Registrarse</h2>
+        <h3>Registrarse</h3>
         <div class="card-body">
             <form @submit.prevent="submitFormReg">
                 <div>
@@ -69,9 +69,9 @@ function submitFormReg(){
                     </div>
                     <!-- Confirmar contraseña -->
                     <!-- <label>Confirmar contraseña:</label>
-                    <input v-model="v$.password.$model" type="password" name="password">
+                    <input v-model="v$.confirmPassword.$model" type="password" name="password">
                     <div>
-                    <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
+                    <p v-for="(error, index) of v$.confirmPassword.$errors" :key="index">{{ error.$message }}</p>
                     </div> -->
                 </div>
                 <!-- Sector -->
