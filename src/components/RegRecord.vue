@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, defineProps } from 'vue'
 import { useRouter } from 'vue-router'
 import useVuelidate from '@vuelidate/core'
 import { required, sameAs, alpha, minLength, maxLength } from '@vuelidate/validators'
@@ -27,84 +27,98 @@ console.log(v$.value);
 
 const router = useRouter();
 
-function submitFormReg(){
+function submitFormReg() {
     v$.value.$touch();
     console.log(state.name);
     if (state.name != "" && state.lastname != "" && state.password != "" && state.confirmPassword == state.password && "" && state.category != "" && state.workSector == "frios") {
         console.log("Se envio");
         router.push('/frios');
-    } else if(state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "calentitos"){
+    } else if (state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "calentitos") {
         router.push('/calentitos');
-    } else if(state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "islas"){
+    } else if (state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "islas") {
         router.push('/islas');
     }
 }
 
+const props = defineProps({
+    id: String
+})
+
 </script>
 
 <template>
-    <div class="card">
-        <h3>Registrarse</h3>
-        <div class="card-body">
-            <form @submit.prevent="submitFormReg">
-                <div>
-                    <!-- Nombre -->
-                    <label>Nombre:</label>
-                    <input v-model="v$.name.$model" type="text">
-                    <br>
-                    <div>
-                        <p v-for="(error, index) of v$.name.$errors" :key="index">{{ error.$message }}</p>
-                    </div>
-                    <!-- Apellido -->
-                    <label>Apellido:</label>
-                    <input v-model="v$.lastName.$model" type="text">
-                    <div>
-                        <p v-for="(error, index) of v$.lastName.$errors" :key="index">{{ error.$message }}</p>
-                    </div>
-                    <!-- Contraseña -->
-                    <label>Contraseña:</label>
-                    <input v-model="v$.password.$model" type="password" name="password">
-                    <div>
-                        <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
-                    </div>
-                    <!-- Confirmar contraseña -->
-                    <!-- <label>Confirmar contraseña:</label>
-                    <input v-model="v$.confirmPassword.$model" type="password" name="password">
-                    <div>
-                    <p v-for="(error, index) of v$.confirmPassword.$errors" :key="index">{{ error.$message }}</p>
-                    </div> -->
+    <div class="modal" v-bind:id="(props.id)">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrarse</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <!-- Sector -->
-                <div class="p-1">
-                    <label>Sector de trabajo: </label>
-                    <select v-model="v$.workSector.$model" class="form-select form-select-sm m-1">
-                        <option value=""></option>
-                        <option value="frios">Frios</option>
-                        <option value="calentitos">Calentitos</option>
-                        <option value="islas">Islas</option>
-                    </select>
-                    <div>
-                        <p v-for="(error, index) of v$.workSector.$errors" :key="index">{{ error.$message }}</p>
+                <div class="modal-body">
+                    <form @submit.prevent="submitFormReg">
+                        <div>
+                            <!-- Nombre -->
+                            <label>Nombre:</label>
+                            <input v-model="v$.name.$model" type="text">
+                            <br>
+                            <div>
+                                <p v-for="(error, index) of v$.name.$errors" :key="index">{{ error.$message }}</p>
+                            </div>
+                            <!-- Apellido -->
+                            <label>Apellido:</label>
+                            <input v-model="v$.lastName.$model" type="text">
+                            <div>
+                                <p v-for="(error, index) of v$.lastName.$errors" :key="index">{{ error.$message }}</p>
+                            </div>
+                            <!-- Contraseña -->
+                            <label>Contraseña:</label>
+                            <input v-model="v$.password.$model" type="password" name="password">
+                            <div>
+                                <p v-for="(error, index) of v$.password.$errors" :key="index">{{ error.$message }}</p>
+                            </div>
+                            <!-- Confirmar contraseña -->
+                            <!-- <label>Confirmar contraseña:</label>
+                            <input v-model="v$.confirmPassword.$model" type="password" name="password">
+                            <div>
+                            <p v-for="(error, index) of v$.confirmPassword.$errors" :key="index">{{ error.$message }}</p>
+                            </div> -->
+                        </div>
+                        <!-- Sector -->
+                        <div class="p-1">
+                            <label>Sector de trabajo: </label>
+                            <select v-model="v$.workSector.$model" class="form-select form-select-sm m-1">
+                                <option value=""></option>
+                                <option value="frios">Frios</option>
+                                <option value="calentitos">Calentitos</option>
+                                <option value="islas">Islas</option>
+                            </select>
+                            <div>
+                                <p v-for="(error, index) of v$.workSector.$errors" :key="index">{{ error.$message }}</p>
+                            </div>
+                            <!-- Categoria -->
+                            <label>Categoria:</label>
+                            <select v-model="v$.category.$model" class="form-select form-select-sm  m-1"
+                                aria-label="Default select example">
+                                <option selected></option>
+                                <option value="cocinero">Cocinero</option>
+                                <option value="ayudante">Ayudante</option>
+                            </select>
+                            <div>
+                                <p v-for="(error, index) of v$.category.$errors" :key="index">{{ error.$message }}</p>
+                            </div>
                     </div>
-                    <!-- Categoria -->
-                    <label>Categoria:</label>
-                    <select v-model="v$.category.$model" class="form-select form-select-sm  m-1"
-                        aria-label="Default select example">
-                        <option selected></option>
-                        <option value="cocinero">Cocinero</option>
-                        <option value="ayudante">Ayudante</option>
-                    </select>
-                    <div>
-                        <p v-for="(error, index) of v$.category.$errors" :key="index">{{ error.$message }}</p>
+
+                </form>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-outline-dark" type="submit">Registrarse</button>
                     </div>
                 </div>
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-outline-dark" type="submit">Registrarse</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-
 </template>
 
 <style scoped>
