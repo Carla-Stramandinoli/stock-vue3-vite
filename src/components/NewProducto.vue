@@ -1,17 +1,30 @@
 <script setup>
 import { reactive } from 'vue'
+import TableProducts from '../components/TableProducts.vue'
 
 const newProduct = reactive({
     nameProduct: '',
     stockInitial: ''
 })
 
+const listaProduct = [
+    { nameProduct: 'dsfsdf' , stockInitial:3434 },
+    { nameProduct:'adsa', stockInitial:3 },
+];
+
 const emits = defineEmits(['sendProduct'])
 
 function uploadNewProduct() {
-    if (newProduct.nameProduct.value != '' && newProduct.stockInitial != '') {
+    listaProduct.push(
+        {
+            nameProduct: newProduct.nameProduct ,stockInitial: newProduct.stockInitial
+        }
+    );
+    console.log(listaProduct);
+    if (newProduct.nameProduct != '' && newProduct.stockInitial != '') {
         emits('sendProduct');
     }
+    document.querySelector(".delete-form-prod").reset();
 }
 </script>
 
@@ -27,7 +40,7 @@ function uploadNewProduct() {
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form>
+            <form class="delete-form-prod">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Nombre del producto:</label>
                     <input v-model="newProduct.nameProduct" type="text" class="form-control">
@@ -43,6 +56,10 @@ function uploadNewProduct() {
                 </button>
             </div>
         </div>
+    </div>
+
+    <div>
+        <TableProducts :id="'tableProduct'" :listaProductos="listaProduct" />
     </div>
 </template>
 
