@@ -7,20 +7,19 @@ const newProduct = reactive({
     stockInitial: ''
 })
 
-const listaProduct = [
-    { nameProduct: 'dsfsdf' , stockInitial:3434 },
-    { nameProduct:'adsa', stockInitial:3 },
-];
+const listProduct = [];
 
 const emits = defineEmits(['sendProduct'])
 
 function uploadNewProduct() {
-    listaProduct.push(
-        {
-            nameProduct: newProduct.nameProduct ,stockInitial: newProduct.stockInitial
-        }
-    );
-    console.log(listaProduct);
+    if (listProduct == "" || listProduct != "null") {
+        listProduct.push(
+            {
+                nameProduct: newProduct.nameProduct, stockInitial: newProduct.stockInitial
+            }
+        );
+    }
+    console.log(listProduct);
     if (newProduct.nameProduct != '' && newProduct.stockInitial != '') {
         emits('sendProduct');
     }
@@ -59,7 +58,7 @@ function uploadNewProduct() {
     </div>
 
     <div>
-        <TableProducts :id="'tableProduct'" :listaProductos="listaProduct" />
+        <TableProducts :id="'tableProduct'" :listaProductos="listProduct" />
     </div>
 </template>
 

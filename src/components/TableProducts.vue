@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps } from 'vue';
 
-const listaProduct = defineProps({
+const props = defineProps({
     listaProductos: Object,
 })
 </script>
@@ -16,7 +16,7 @@ const listaProduct = defineProps({
                 </tr>
             </thead>
             <tbody>
-                <tr v-for='(prod, index) in listaProduct.listaProductos' :key='index'>
+                <tr v-for="(prod, index) of props.listaProductos" :key="index">
                     <td>{{ prod.nameProduct }}</td>
                     <td>{{ prod.stockInitial }}</td>
                 </tr>
