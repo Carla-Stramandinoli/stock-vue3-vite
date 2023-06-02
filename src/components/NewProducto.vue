@@ -1,27 +1,23 @@
 <script setup>
 import { reactive } from 'vue'
-import TableProducts from '../components/TableProducts.vue'
 
 const newProduct = reactive({
     nameProduct: '',
     stockInitial: ''
 })
 
-const listProduct = [];
-
-const emits = defineEmits(['sendProduct'])
+const emits = defineEmits(['send-product'
+    // sendProduct: ({nameProduct, stockInitial}) => {
+    //     if (nameProduct != "" && stockInitial != ""){
+    //         listProduct.push({ nameProduct: newProduct.nameProduct, stockInitial: newProduct.stockInitial })
+    //     }
+    // }
+    ])
 
 function uploadNewProduct() {
-    if (listProduct == "" || listProduct != "null") {
-        listProduct.push(
-            {
-                nameProduct: newProduct.nameProduct, stockInitial: newProduct.stockInitial
-            }
-        );
-    }
-    console.log(listProduct);
-    if (newProduct.nameProduct != '' && newProduct.stockInitial != '') {
-        emits('sendProduct');
+     if (newProduct.nameProduct != '' && newProduct.stockInitial != '') {
+        // listProduct.push({ nameProduct: newProduct.nameProduct, stockInitial: newProduct.stockInitial });
+        emits('send-product',{ nameProduct: newProduct.nameProduct, stockInitial: newProduct.stockInitial});
     }
     document.querySelector(".delete-form-prod").reset();
 }
@@ -57,9 +53,6 @@ function uploadNewProduct() {
         </div>
     </div>
 
-    <div>
-        <TableProducts :id="'tableProduct'" :listaProductos="listProduct" />
-    </div>
 </template>
 
 <style scoped></style>

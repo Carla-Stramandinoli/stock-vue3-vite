@@ -4,11 +4,12 @@ import { defineProps } from 'vue';
 const props = defineProps({
     listaProductos: Object,
 })
+
 </script>
 
 <template>
     <div>
-        <table v-bind:id="(id)" class="table">
+        <table  v-bind:id="(id)" class="table">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -16,7 +17,7 @@ const props = defineProps({
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(prod, index) of props.listaProductos" :key="index">
+                <tr  v-for="(prod, index) of props.listaProductos" :key="index">
                     <td>{{ prod.nameProduct }}</td>
                     <td>{{ prod.stockInitial }}</td>
                 </tr>

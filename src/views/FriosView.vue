@@ -1,14 +1,18 @@
 <script setup>
 import NewProducto from '../components/NewProducto.vue'
-import { defineProps } from 'vue';
+import TableProducts from '../components/TableProducts.vue'
 
-const products = defineProps({
-    nameProduct: String,
-    stockInitial: Number
-})
+const arrayProducts = [];
 
-function drawTable() {
+
+function drawTable(newProduct) {
    console.log("hola");
+   console.log(arrayProducts);
+   console.log(newProduct);
+
+   if (newProduct == "" || newProduct != "null") {
+      arrayProducts.push( newProduct );
+    }
 }
 
 </script>
@@ -17,6 +21,7 @@ function drawTable() {
    <div>
       <h3>Stock fríos</h3>
       <NewProducto @sendProduct="drawTable" />
+      <TableProducts :id="'tableProduct'" :listaProductos="arrayProducts" />
    </div>
 </template>
 
