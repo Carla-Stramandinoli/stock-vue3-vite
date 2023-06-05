@@ -29,8 +29,8 @@ const router = useRouter();
 
 function submitFormReg() {
     v$.value.$touch();
-    console.log(state.name);
-    if (state.name != "" && state.lastname != "" && state.password != "" && state.confirmPassword == state.password && "" && state.category != "" && state.workSector == "frios") {
+    console.log(state.workSector);
+    if (state.name != "" && state.lastname != "" && state.password != ""  && state.category != "" && state.workSector == "frios") {
         console.log("Se envio");
         router.push('/frios');
     } else if (state.name != "" && state.lastname != "" && state.password != "" && state.category != "" && state.workSector == "calentitos") {
@@ -78,10 +78,10 @@ const props = defineProps({
                             </div>
                             <!-- Confirmar contraseña -->
                             <!-- <label>Confirmar contraseña:</label>
-                            <input v-model="v$.confirmPassword.$model" type="password" name="password">
-                            <div>
-                            <p v-for="(error, index) of v$.confirmPassword.$errors" :key="index">{{ error.$message }}</p>
-                            </div> -->
+                                        <input v-model="v$.confirmPassword.$model" type="password" name="password">
+                                        <div>
+                                        <p v-for="(error, index) of v$.confirmPassword.$errors" :key="index">{{ error.$message }}</p>
+                                        </div> -->
                         </div>
                         <!-- Sector -->
                         <div class="p-1">
@@ -106,15 +106,14 @@ const props = defineProps({
                             <div>
                                 <p v-for="(error, index) of v$.category.$errors" :key="index">{{ error.$message }}</p>
                             </div>
-                    </div>
-
-                </form>
-            </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-outline-dark" type="submit">Registrarse</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-outline-dark" type="submit">Registrarse</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

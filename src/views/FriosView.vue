@@ -12,7 +12,7 @@ const loadNewProduct = (data) => {
 </script>
 
 <template>
-   <div>
+   <div class="col-12">
       <h3>Stock fríos</h3>
       <NewProducto @sendData="loadNewProduct" />
       <TableProducts :data="tableData" />

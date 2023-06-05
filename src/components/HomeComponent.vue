@@ -2,7 +2,6 @@
 import LogForm from '../components/LogForm.vue'
 import RegRecord from '../components/RegRecord.vue'
 import { defineEmits } from 'vue'
-import $ from 'jquery'
 
 const emit = defineEmits(['show']);
 
