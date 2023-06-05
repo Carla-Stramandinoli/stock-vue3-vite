@@ -1,25 +1,16 @@
 <script setup>
-import { reactive } from 'vue'
+import { ref } from 'vue'
 
-const newProduct = reactive({
-    nameProduct: '',
-    stockInitial: ''
-})
+const nameProduct = ref('');
+const stockInitial = ref(0);
 
-const emits = defineEmits(['send-product'
-    // sendProduct: ({nameProduct, stockInitial}) => {
-    //     if (nameProduct != "" && stockInitial != ""){
-    //         listProduct.push({ nameProduct: newProduct.nameProduct, stockInitial: newProduct.stockInitial })
-    //     }
-    // }
-    ])
+const emit = defineEmits(['sendData']);
 
 function uploadNewProduct() {
-     if (newProduct.nameProduct != '' && newProduct.stockInitial != '') {
-        // listProduct.push({ nameProduct: newProduct.nameProduct, stockInitial: newProduct.stockInitial });
-        emits('send-product',{ nameProduct: newProduct.nameProduct, stockInitial: newProduct.stockInitial});
-    }
-    document.querySelector(".delete-form-prod").reset();
+    const data = {nameProduct: nameProduct.value, stockInitial: stockInitial.value};
+    console.log(data);
+    emit('sendData', data)
+    document.querySelector('.delete-form-prod').reset();
 }
 </script>
 
@@ -35,24 +26,24 @@ function uploadNewProduct() {
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form class="delete-form-prod">
+            <form @submit.prevent="uploadNewProduct" class="delete-form-prod">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Nombre del producto:</label>
-                    <input v-model="newProduct.nameProduct" type="text" class="form-control">
+                    <input v-model="nameProduct" type="text" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Stock inicial:</label>
-                    <input v-model="newProduct.stockInitial" type="number" class="form-control">
+                    <input v-model="stockInitial" type="number" class="form-control">
                 </div>
-            </form>
+           
             <div class="mt-3">
-                <button @click="uploadNewProduct()" class="btn btn-secondary" type="submit">
+                <button class="btn btn-secondary" type="submit">
                     Agregar
                 </button>
             </div>
+        </form>
         </div>
     </div>
-
 </template>
 
 <style scoped></style>

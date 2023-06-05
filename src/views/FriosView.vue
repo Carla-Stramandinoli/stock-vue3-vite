@@ -1,27 +1,21 @@
 <script setup>
 import NewProducto from '../components/NewProducto.vue'
 import TableProducts from '../components/TableProducts.vue'
+import { ref } from 'vue'
 
-const arrayProducts = [];
+const tableData = ref([]);
 
-
-function drawTable(newProduct) {
-   console.log("hola");
-   console.log(arrayProducts);
-   console.log(newProduct);
-
-   if (newProduct == "" || newProduct != "null") {
-      arrayProducts.push( newProduct );
-    }
+const loadNewProduct = (data) => {
+   console.log(tableData);
+   tableData.value.push(data);
 }
-
 </script>
 
 <template>
    <div>
       <h3>Stock fríos</h3>
-      <NewProducto @sendProduct="drawTable" />
-      <TableProducts :id="'tableProduct'" :listaProductos="arrayProducts" />
+      <NewProducto @sendData="loadNewProduct" />
+      <TableProducts :data="tableData" />
    </div>
 </template>
 

@@ -1,8 +1,7 @@
 <script setup>
-import { defineProps } from 'vue';
 
 const props = defineProps({
-    listaProductos: Object,
+    data: Array
 })
 
 </script>
@@ -17,7 +16,7 @@ const props = defineProps({
                 </tr>
             </thead>
             <tbody>
-                <tr  v-for="(prod, index) of props.listaProductos" :key="index">
+                <tr  v-for="(prod, index) of props.data" :key="index">
                     <td>{{ prod.nameProduct }}</td>
                     <td>{{ prod.stockInitial }}</td>
                 </tr>
