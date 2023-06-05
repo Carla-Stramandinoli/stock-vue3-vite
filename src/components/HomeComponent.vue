@@ -8,7 +8,7 @@ const emit = defineEmits(['show']);
 
 function showModalReg(id) {
     emit("show");
-    $("#" + id).modal('show');
+    window.$("#" + id).modal('show');
 }
 
 </script>
